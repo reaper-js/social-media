@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "learnDemo",
-    "slug": "learnDemo",
+    "slug": "learndemo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -36,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f52dfea4-21c6-43af-ab4c-af3e22e53677"
+      }
+    },
+    "owner": "bobsled"
   }
 }
