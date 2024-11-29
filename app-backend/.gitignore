@@ -1,0 +1,54 @@
+### Node ###
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+### Build ###
+dist/
+build/
+out/
+
+dev.env
+### Environment Variables ###
+.env
+.env.local
+.env.*.local
+
+### IDE ###
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+### Logs ###
+logs/
+*.log
+
+### Testing ###
+coverage/
+
+### Temporary files ###
+*.tmp
+*.temp
+.cache/
+
+### System Files ###
+Thumbs.db
+.DS_Store
+*.pem
+
+### Dependency directories ###
+jspm_packages/
+bower_components/
+
+### Optional npm cache directory ###
+.npm
+
+### Optional eslint cache ###
+.eslintcache
+
+### Optional REPL history ###
+.node_repl_history
