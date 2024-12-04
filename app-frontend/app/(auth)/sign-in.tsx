@@ -4,7 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
+const url = "http://192.168.1.4:3000";
 const SignIn = () => {
   const [form, setForm] = useState({
     email: "",
@@ -13,7 +15,35 @@ const SignIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`${url}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Login failed: ${data.message}`);
+        return;
+      }
+
+      // Store the token securely
+      await SecureStore.setItemAsync("userToken", data.token);
+
+      // You can add navigation to main app here
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="h-full bg-red-500">
@@ -29,16 +59,14 @@ const SignIn = () => {
         <FormField
           title="Email"
           value={form.email}
-          handleChangeText={(e) => setForm({ ...form, email: e })}
+          handleChangeText={(e: any) => setForm({ ...form, email: e })}
           otherStyles="mt-7 mx-4 px-4"
-          keyboardType="email-address"
         />
         <FormField
           title="Password"
           value={form.password}
-          handleChangeText={(e) => setForm({ ...form, password: e })}
+          handleChangeText={(e: any) => setForm({ ...form, password: e })}
           otherStyles="mt-7 mx-4 px-4"
-          keyboardType="email-address"
         />
 
         <CustomButton

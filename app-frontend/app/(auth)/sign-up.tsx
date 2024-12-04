@@ -4,17 +4,44 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
+const url = "http://192.168.1.4:3000";
 const SignUp = () => {
   const [form, setForm] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    setIsSubmitting(true);
+    try {
+      console.log(`${url}/users/register`);
+      const response = await fetch(`${url}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Signup failed: ${errorData.message}`);
+        return;
+      }
+      await SecureStore.setItemAsync("userToken", data.token);
+      alert("Signup successful! Please sign in.");
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="h-full bg-red-500">
@@ -29,24 +56,22 @@ const SignUp = () => {
             Join Melon!!
           </Text>
           <FormField
-            title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
+            title="Name"
+            value={form.name}
             otherStyles="mt-7 mx-4 px-4"
+            handleChangeText={(e) => setForm({ ...form, name: e })}
           />
           <FormField
             title="Email"
             value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7 mx-4 px-4"
-            keyboardType="email-address"
+            handleChangeText={(e) => setForm({ ...form, email: e })}
           />
           <FormField
             title="Password"
             value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7 mx-4 px-4"
-            keyboardType="email-address"
+            handleChangeText={(e) => setForm({ ...form, password: e })}
           />
 
           <CustomButton

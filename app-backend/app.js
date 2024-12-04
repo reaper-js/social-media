@@ -1,6 +1,7 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
@@ -8,10 +9,11 @@ import userRoutes from './routes/userRoutes.js'
 import mediaRoutes from './routes/mediaRouters.js'
 
 dotenv.config();
-connectDB();
+connectDB({
+  origin: 'http://localhost:3000',
+});
 
 const app = express();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

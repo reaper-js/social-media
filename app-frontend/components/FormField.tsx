@@ -3,17 +3,25 @@ import React, { useState } from "react";
 
 import { icons } from "@/constants";
 
-const FormField = ({
+type FormFieldProps = {
+  title: string;
+  value: string;
+  placeholder?: string;
+  handleChangeText: (text: string) => void;
+  otherStyles?: string;
+};
+
+const FormField: React.FC<FormFieldProps> = ({
   title,
   value,
   placeholder,
   handleChangeText,
   otherStyles,
-  ...props
-}: any) => {
+}) => {
   const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <View className={`space-y-2 mr- 4 ${otherStyles}`}>
+    <View className={`space-y-2 ${otherStyles || ""}`}>
       <Text className="text-base text-white font-pmedium ml-2">{title}</Text>
       <View className="w-full h-16 bg-white rounded-3xl justify-center items-center flex-row">
         <TextInput
