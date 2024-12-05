@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
 const url = "http://192.168.1.4:3000";
@@ -34,7 +34,7 @@ const SignUp = () => {
         return;
       }
       await SecureStore.setItemAsync("userToken", data.token);
-      alert("Signup successful! Please sign in.");
+      router.replace("/home");
     } catch (error) {
       alert("Something went wrong. Please try again.");
       console.log(error);

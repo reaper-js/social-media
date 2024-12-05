@@ -3,17 +3,18 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { useGlobal } from "@/context/GlobalProvider";
 
 const url = "http://192.168.1.4:3000";
 const SignIn = () => {
+  const { login } = useGlobal();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
     setIsSubmitting(true);
@@ -33,13 +34,10 @@ const SignIn = () => {
         return;
       }
 
-      // Store the token securely
-      await SecureStore.setItemAsync("userToken", data.token);
-
-      // You can add navigation to main app here
+      await login(data, data.token);
+      router.replace("/home");
     } catch (error) {
       alert("Something went wrong. Please try again.");
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }

@@ -49,3 +49,12 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const verifyUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password -tokens');
+        res.json(user);
+    } catch (error) {
+        res.status(401).json({ message: "Authentication failed" });
+    }
+};
