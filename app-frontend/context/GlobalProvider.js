@@ -20,7 +20,7 @@ function GlobalProvider({ children }) {
     try {
       const token = await SecureStore.getItemAsync('userToken');
       if (token) {
-        const response = await fetch('http://192.168.1.4:3000/users/verify', {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/users/verify`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

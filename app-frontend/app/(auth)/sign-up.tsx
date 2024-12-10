@@ -6,7 +6,7 @@ import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
-const url = "http://192.168.1.4:3000";
+const url = process.env.EXPO_PUBLIC_API_URL;
 const SignUp = () => {
   const [form, setForm] = useState({
     name: "",

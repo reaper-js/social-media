@@ -7,7 +7,7 @@ import { Link, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useGlobal } from "@/context/GlobalProvider";
 
-const url = "http://192.168.1.4:3000";
+const url = process.env.EXPO_PUBLIC_API_URL;
 const SignIn = () => {
   const { login } = useGlobal();
   const [isSubmitting, setIsSubmitting] = useState(false);
