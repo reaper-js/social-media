@@ -7,9 +7,14 @@ import CustomButton from "./CustomButton";
 type EmptyStateProps = {
   title: string;
   subtitle: string;
+  isSearch?: boolean;
 };
 
-const EmptyState: React.FC<EmptyStateProps> = ({ title, subtitle }) => {
+const EmptyState: React.FC<EmptyStateProps> = ({
+  title,
+  subtitle,
+  isSearch,
+}) => {
   return (
     <View className="justify-center items-center px-4">
       <Image
@@ -17,13 +22,17 @@ const EmptyState: React.FC<EmptyStateProps> = ({ title, subtitle }) => {
         className="w-[270px] h-[215px]"
         resizeMode="contain"
       />
-      <Text className="text-3xl font-psemibold text-center">{title}</Text>
+      <Text className="text-3xl font-psemibold text-center -mt-10">
+        {title}
+      </Text>
 
-      <CustomButton
-        title="Create a Post"
-        handlePress={() => router.push("/create")}
-        containerStyles="w-full my-4"
-      />
+      {!isSearch && (
+        <CustomButton
+          title="Create a Post"
+          handlePress={() => router.push("/create")}
+          containerStyles="w-full my-4"
+        />
+      )}
     </View>
   );
 };

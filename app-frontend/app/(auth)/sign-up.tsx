@@ -16,31 +16,16 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = async () => {
-    setIsSubmitting(true);
-    try {
-      console.log(`${url}/users/register`);
-      const response = await fetch(`${url}/users/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        const errorData = await response.json();
-        alert(`Signup failed: ${errorData.message}`);
-        return;
-      }
-      await SecureStore.setItemAsync("userToken", data.token);
-      router.replace("/home");
-    } catch (error) {
-      alert("Something went wrong. Please try again.");
-      console.log(error);
-    } finally {
-      setIsSubmitting(false);
+  const submit = () => {
+    if (!form.email || !form.password || !form.name) {
+      alert("Please fill all fields");
+      return;
     }
+
+    router.push({
+      pathname: "/complete-profile",
+      params: form,
+    });
   };
 
   return (

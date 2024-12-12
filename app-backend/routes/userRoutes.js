@@ -1,10 +1,38 @@
 import express from "express";
-import { registerUser, loginUser, verifyUser } from "../controllers/userController.js";
+import { registerUser, loginUser, verifyUser, checkUsername, searchUsers } from "../controllers/userController.js";
 import auth from "../middleware/auth.js";
 const router = express.Router();
+import multer from "multer";
+import path from 'path';
 
-router.post("/register", registerUser);
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'public/profilePictures/'); 
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  });
+  
+  const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+      const filetypes = /jpeg|jpg|png/;
+      const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+      const mimetype = filetypes.test(file.mimetype);
+  
+      if (extname && mimetype) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only image and video files are allowed!'));
+      }
+    },
+  });
+
+router.post("/register", upload.single('avatar'), registerUser);
 router.post("/login", loginUser);
 router.get("/verify", auth, verifyUser);
+router.get("/checkUsername/:username", checkUsername);
+router.get("/searchUsers", auth, searchUsers);
 
 export default router;

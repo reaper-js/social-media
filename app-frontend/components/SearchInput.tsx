@@ -29,6 +29,10 @@ const SearchInput: React.FC<FormFieldProps> = ({
         placeholderTextColor="black"
         onChangeText={handleChangeText}
         secureTextEntry={title === "Password" && !showPassword}
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="default"
+        returnKeyType="search"
       />
       <TouchableOpacity>
         <Image
@@ -40,5 +44,4 @@ const SearchInput: React.FC<FormFieldProps> = ({
     </View>
   );
 };
-
 export default SearchInput;

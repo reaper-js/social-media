@@ -8,6 +8,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+    },
     email: {
         type: String,
         required: true,
@@ -27,12 +34,24 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
     },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     uploads: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Media",
         },
     ],
+    savedPosts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Media'
+    }],
     tokens: [
         {
             token: {
@@ -43,6 +62,42 @@ const userSchema = new mongoose.Schema({
     ]
 }, {
     timestamps: true,
+});
+
+
+userSchema.methods.follow = async function(userIdToFollow) {
+    if (!this.following.includes(userIdToFollow)) {
+        this.following.push(userIdToFollow);
+        await this.save();
+        // Add to other user's followers
+        const userToFollow = await this.model('User').findById(userIdToFollow);
+        if (!userToFollow.followers.includes(this._id)) {
+            userToFollow.followers.push(this._id);
+            await userToFollow.save();
+        }
+    }
+    return this;
+};
+
+userSchema.methods.unfollow = async function(userIdToUnfollow) {
+    this.following = this.following.filter(id => id.toString() !== userIdToUnfollow.toString());
+    await this.save();
+    
+    const userToUnfollow = await this.model('User').findById(userIdToUnfollow);
+    userToUnfollow.followers = userToUnfollow.followers.filter(id => id.toString() !== this._id.toString());
+    await userToUnfollow.save();
+    
+    return this;
+};
+
+// Get follower count
+userSchema.virtual('followerCount').get(function() {
+    return this.followers.length;
+});
+
+// Get following count
+userSchema.virtual('followingCount').get(function() {
+    return this.following.length;
 });
 
 userSchema.methods.generateAuthToken = async function () {

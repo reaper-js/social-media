@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js'
 import mediaRoutes from './routes/mediaRouters.js'
+import bodyParser from 'body-parser';
 
 dotenv.config();
 connectDB({
@@ -16,9 +17,10 @@ connectDB({
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/public/profilePictures', express.static(path.join(__dirname, 'public/profilePictures')));
 
 
 // Routes
