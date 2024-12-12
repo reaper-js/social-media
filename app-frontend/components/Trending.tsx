@@ -13,6 +13,7 @@ const Trending: React.FC<TrendingProps> = ({ posts }) => {
       data={posts}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <Text className="text-3xl"> {item.id}</Text>}
+      horizontal
     />
   );
 };

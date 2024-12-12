@@ -2,6 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import { getAllMedia, uploadMedia } from '../controllers/mediaController.js';
 import express from 'express';
+import auth from "../middleware/auth.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,7 +30,7 @@ const upload = multer({
 
 const router  = express.Router();
 
-router.post('/upload', upload.single('media'), uploadMedia);
-router.get('/', getAllMedia);
+router.post('/upload',  auth, upload.single('media'), uploadMedia);
+router.get('/', auth, getAllMedia);
 
 export default router;

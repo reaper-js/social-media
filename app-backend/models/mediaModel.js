@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
 
 const mediaSchema = new mongoose.Schema({
-    title: { 
-        type: String, 
-        required: true 
-    }, 
     description: { 
-        type: String 
+        type: String,
     }, 
     mediaUrl: { 
         type: String, 
