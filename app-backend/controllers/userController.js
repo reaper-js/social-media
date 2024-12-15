@@ -88,3 +88,65 @@ export const searchUsers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findOne({ _id: userId }).select('-password -tokens');
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
+    await req.user.save();
+    res.json({ message: "Logged out successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const logoutAll = async (req, res) => {
+  try {
+    req.user.tokens = [];
+    await req.user.save();
+    res.json({ message: "Logged out from all devices successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+export const followUser = async (req, res) => {
+  try {
+    const userToFollow = await User.findById(req.params.userId);
+    if (!userToFollow) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await req.user.follow(userToFollow._id);
+    res.json({ message: "Successfully followed user" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const unfollowUser = async (req, res) => {
+  try {
+    const userToUnfollow = await User.findById(req.params.userId);
+    if (!userToUnfollow) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await req.user.unfollow(userToUnfollow._id);
+    res.json({ message: "Successfully unfollowed user" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

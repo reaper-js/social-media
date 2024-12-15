@@ -1,6 +1,6 @@
 import multer from 'multer';
 import path from 'path';
-import { getAllMedia, uploadMedia, getFeed } from '../controllers/mediaController.js';
+import { getAllMedia, uploadMedia, getFeed, getPosts } from '../controllers/mediaController.js';
 import express from 'express';
 import auth from "../middleware/auth.js";
 
@@ -33,5 +33,6 @@ const router  = express.Router();
 router.post('/upload',  auth, upload.single('media'), uploadMedia);
 router.get('/', auth, getAllMedia);
 router.get('/feed', auth, getFeed);
+router.get('/getPosts/:userId', auth, getPosts);
 
 export default router;

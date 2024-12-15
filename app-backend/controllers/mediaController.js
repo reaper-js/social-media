@@ -47,6 +47,19 @@ export const getAllMedia = async (req, res) => {
   }
 };
 
+export const getPosts = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const media = await Media.find({uploadedBy: userId}).populate('uploadedBy', 'name avatar').sort({createdAt: -1});
+    res.json(media);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
 export const toggleLike = async (req, res) => {
     try {
         const media = await Media.findById(req.params.id);

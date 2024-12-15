@@ -10,12 +10,10 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../constants/images";
 // import Search from "../search/[query]";
-import SearchInput from "@/components/SearchInput";
-import Trending from "@/components/Trending";
 import EmptyState from "@/components/EmptyState";
 import * as SecureStore from "expo-secure-store";
-
-import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const Home = () => {
@@ -86,7 +84,7 @@ const Home = () => {
         }
       );
       if (response.ok) {
-        fetchPosts(); // Refresh posts to show updated save status
+        fetchPosts();
       }
     } catch (error) {
       console.error("Error saving post:", error);
@@ -98,10 +96,12 @@ const Home = () => {
     // navigation.navigate("Comments", { postId });
   };
 
-  useEffect(() => {
-    fetchPosts();
-    getUserId();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchPosts();
+      getUserId();
+    }, [])
+  );
 
   // const items: Array<{ id: number }> = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const renderPost = ({ item }: { item: any }) => (

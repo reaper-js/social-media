@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, verifyUser, checkUsername, searchUsers } from "../controllers/userController.js";
+import { registerUser, loginUser, verifyUser, checkUsername, searchUsers, getProfile, logout, logoutAll, followUser, unfollowUser } from "../controllers/userController.js";
 import auth from "../middleware/auth.js";
 const router = express.Router();
 import multer from "multer";
@@ -34,5 +34,12 @@ router.post("/login", loginUser);
 router.get("/verify", auth, verifyUser);
 router.get("/checkUsername/:username", checkUsername);
 router.get("/searchUsers", auth, searchUsers);
+router.get("/getProfile/:userId", auth, getProfile);
+
+router.post('/logout', auth, logout);
+router.post('/logoutAll', auth, logoutAll);
+
+router.post('/follow/:userId', auth, followUser);
+router.post('/unfollow/:userId', auth, unfollowUser);
 
 export default router;
