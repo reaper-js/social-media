@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, verifyUser, checkUsername, searchUsers, getProfile, logout, logoutAll, followUser, unfollowUser } from "../controllers/userController.js";
+import { registerUser, loginUser, verifyUser, checkUsername, searchUsers, getProfile, logout, logoutAll, followUser, unfollowUser, updateProfile } from "../controllers/userController.js";
 import auth from "../middleware/auth.js";
 const router = express.Router();
 import multer from "multer";
@@ -31,6 +31,8 @@ const storage = multer.diskStorage({
 
 router.post("/register", upload.single('avatar'), registerUser);
 router.post("/login", loginUser);
+router.patch('/update-profile', auth, upload.single('avatar'), updateProfile);
+
 router.get("/verify", auth, verifyUser);
 router.get("/checkUsername/:username", checkUsername);
 router.get("/searchUsers", auth, searchUsers);

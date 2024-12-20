@@ -4,12 +4,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 import { useGlobal } from "@/context/GlobalProvider";
 
 const url = process.env.EXPO_PUBLIC_API_URL;
 const SignIn = () => {
-  const { login } = useGlobal();
+  const {
+    value: { login },
+  } = useGlobal();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -37,6 +38,7 @@ const SignIn = () => {
       await login(data, data.token);
       router.replace("/home");
     } catch (error) {
+      console.error("Error during login:", error);
       alert("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);

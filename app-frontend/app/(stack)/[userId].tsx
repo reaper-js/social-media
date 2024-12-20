@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, Stack, router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import { images } from "@/constants";
+import { icons, images } from "@/constants";
 import EmptyState from "@/components/EmptyState";
 import { useGlobal } from "@/context/GlobalProvider";
 
 const UserProfile = () => {
-  const { user: currentUser } = useGlobal();
+  const {
+    value: { user: currentUser },
+  } = useGlobal();
   const { userId } = useLocalSearchParams();
   const [userData, setUserData] = useState<any>(null);
   const [userPosts, setUserPosts] = useState<any[]>([]);
@@ -16,6 +18,13 @@ const UserProfile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const url = process.env.EXPO_PUBLIC_API_URL;
+  if (!currentUser) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text>Loading user data...</Text>
+      </View>
+    );
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,7 +38,9 @@ const UserProfile = () => {
         const data = await response.json();
         setUserData(data);
 
-        const isCurrentUserFollowing = data.followers.includes(currentUser._id);
+        const isCurrentUserFollowing = data?.followers?.includes(
+          currentUser?._id
+        );
         setIsFollowing(isCurrentUserFollowing);
 
         const postsResponse = await fetch(`${url}/media/getPosts/${userId}`, {
@@ -79,7 +90,7 @@ const UserProfile = () => {
 
       if (response.ok) {
         setIsFollowing(!isFollowing);
-        // Update follower count
+
         setUserData((prev: { followers: any[] }) => ({
           ...prev,
           followers: isFollowing
@@ -96,18 +107,6 @@ const UserProfile = () => {
     <>
       <SafeAreaView className="bg-red-400 flex-1">
         <ScrollView className="flex-1">
-          <View className="mt-6 px-4">
-            <View className="justify-between items-start flex-row mr-4">
-              <Text className="text-5xl font-pblack pt-1 mt-3 ml-4">
-                {userData.username}
-              </Text>
-              <Image
-                source={images.watermelon}
-                className="w-14 h-14"
-                resizeMode="contain"
-              />
-            </View>
-          </View>
           <View className="items-center mt-6 px-4">
             <Image
               source={{
@@ -138,7 +137,7 @@ const UserProfile = () => {
                 <Text className="font-pregular">Posts</Text>
               </View>
             </View>
-            {currentUser._id !== userId && (
+            {currentUser && currentUser._id !== userId && (
               <TouchableOpacity
                 className={`items-center justify-center mt-6 p-2 rounded-full ${
                   isFollowing ? "bg-gray-500" : "bg-green-800"

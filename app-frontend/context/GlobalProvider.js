@@ -15,7 +15,9 @@ function GlobalProvider({ children }) {
     
     return () => clearTimeout(timeout);
   }, []);
-
+  const resetAllState = () => {
+    setUser(null);
+  };
   const checkAuthStatus = async () => {
     try {
       const token = await SecureStore.getItemAsync('userToken');
@@ -69,7 +71,7 @@ function GlobalProvider({ children }) {
   }
 
   return (
-    <GlobalContext.Provider value={value}>
+    <GlobalContext.Provider value={{value, resetAllState}}>
       {children}
     </GlobalContext.Provider>
   );

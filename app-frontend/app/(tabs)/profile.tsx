@@ -12,10 +12,14 @@ import { icons, images } from "../../constants";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
+import PostVideo from "@/components/PostVideo";
+import ProfileVideo from "@/components/ProfileVideo";
 
 const url = process.env.EXPO_PUBLIC_API_URL;
 const Profile = () => {
-  const { user } = useGlobal();
+  const {
+    value: { user },
+  } = useGlobal();
 
   const [posts, setPosts] = useState<any[]>([]);
   const [profileData, setProfileData] = useState<any>(null);
@@ -42,6 +46,10 @@ const Profile = () => {
   const getPosts = async () => {
     try {
       const token = await SecureStore.getItemAsync("userToken");
+      if (!token) {
+        throw new Error("No token found");
+      }
+      userId = JSON.parse(atob(token.split(".")[1]))._id;
       const response = await fetch(`${url}/media/getPosts/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -69,7 +77,7 @@ const Profile = () => {
   const ProfileHeader = () => (
     <View className="mt-6 px-4">
       <View className="justify-between items-start flex-row mr-4">
-        <Text className="text-5xl font-pblack pt-1 mt-3 ml-4">
+        <Text className="text-3xl font-pblack pt-1 mt-3 ml-4">
           {profileData?.username}
         </Text>
         <Image
@@ -120,13 +128,12 @@ const Profile = () => {
       {/* Action Button */}
       <TouchableOpacity
         className={`mt-4 p-2 rounded-full bg-green-800`}
-        onPress={() => router.push("/profile")}
+        onPress={() => router.push("/edit-profile")}
       >
         <Text className="text-white text-center font-pmedium">
           Edit Profile
         </Text>
       </TouchableOpacity>
-
       <Text className="font-pbold text-lg mt-6 mb-4">Posts</Text>
     </View>
   );
@@ -140,12 +147,17 @@ const Profile = () => {
         ListHeaderComponent={<ProfileHeader />}
         renderItem={({ item }) => (
           <TouchableOpacity className="flex-1 aspect-square m-0.5">
-            <Image
-              source={{
-                uri: `${url}/${item.mediaUrl}`,
-              }}
-              className="w-full h-full"
-            />
+            {item.mediaType === "video" ? (
+              <ProfileVideo videoUrl={`${url}/${item.mediaUrl}`} />
+            ) : (
+              <Image
+                source={{
+                  uri: `${url}/${item.mediaUrl}`,
+                }}
+                resizeMode="cover"
+                className="w-full h-full"
+              />
+            )}
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item._id}

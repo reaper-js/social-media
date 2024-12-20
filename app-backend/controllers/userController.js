@@ -50,6 +50,7 @@ export const loginUser = async (req, res) => {
             res.status(400).json({ message: "Invalid credentials" });
         }
     } catch (error) {
+      console.log(error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -148,5 +149,31 @@ export const unfollowUser = async (req, res) => {
     res.json({ message: "Successfully unfollowed user" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+      const updates = {
+          name: req.body.name,
+          bio: req.body.bio
+      };
+      if (req.file) {
+          updates.avatar = req.file.path;
+      }
+
+      const user = await User.findByIdAndUpdate(
+          req.user._id,
+          updates,
+          { new: true, runValidators: true }
+      ).select('-password -tokens');
+
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.json(user);
+  } catch (error) {
+      res.status(400).json({ message: error.message });
   }
 };

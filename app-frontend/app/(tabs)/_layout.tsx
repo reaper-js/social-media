@@ -5,6 +5,8 @@ import { useState } from "react";
 import { LogoutModal } from "../../components/LogoutModal";
 import * as SecureStore from "expo-secure-store";
 import React from "react";
+import * as Haptics from "expo-haptics";
+import { useGlobal } from "../../context/GlobalProvider";
 
 const url = process.env.EXPO_PUBLIC_API_URL;
 const TabIcon = ({
@@ -37,6 +39,7 @@ const TabIcon = ({
 };
 
 const TabsLayout = () => {
+  const { resetAllState } = useGlobal();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = async () => {
@@ -51,6 +54,7 @@ const TabsLayout = () => {
       });
       if (response.ok) {
         await SecureStore.deleteItemAsync("userToken");
+        resetAllState();
         setShowLogoutModal(false);
         router.replace("/");
       }
@@ -62,7 +66,7 @@ const TabsLayout = () => {
   const handleLogoutAll = async () => {
     try {
       const token = await SecureStore.getItemAsync("userToken");
-      const response = await fetch(`${url}/auth/logout-all`, {
+      const response = await fetch(`${url}/users/logout-all`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,6 +75,7 @@ const TabsLayout = () => {
 
       if (response.ok) {
         await SecureStore.deleteItemAsync("userToken");
+        resetAllState();
         setShowLogoutModal(false);
         router.replace("/");
       }
@@ -139,21 +144,6 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="bookmark"
-          options={{
-            title: "bookmark",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.bookmark}
-                color={color}
-                name="Saved"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
           name="profile"
           options={{
             title: "profile",
@@ -172,7 +162,8 @@ const TabsLayout = () => {
               e.preventDefault();
               router.push("/profile");
             },
-            tabLongPress: () => {
+            tabLongPress: async () => {
+              await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
               setShowLogoutModal(true);
             },
           }}

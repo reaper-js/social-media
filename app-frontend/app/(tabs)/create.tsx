@@ -37,15 +37,29 @@ const Create = () => {
 
     const filename = mediaUri.split("/").pop();
     const match = /\.(\w+)$/.exec(filename || "");
-    const type = match ? `image/${match[1]}` : "image";
+
+    // Determine media type based on file extension
+    const fileExtension = match ? match[1].toLowerCase() : "";
+    const isVideo = [
+      "mp4",
+      "mov",
+      "avi",
+      "mkv",
+      "webm",
+      "3gp",
+      "flv",
+      "h264",
+    ].includes(fileExtension);
+    const mediaType = isVideo ? "video" : "image";
+    const type = isVideo ? `video/${fileExtension}` : `image/${fileExtension}`;
 
     formData.append("media", {
       uri: mediaUri,
       type,
-      name: filename || "image",
+      name: filename || "media",
     } as any);
     formData.append("description", caption);
-    formData.append("mediaType", "image");
+    formData.append("mediaType", mediaType); // Now sending correct mediaType
     const token = await SecureStore.getItemAsync("userToken");
     try {
       const response = await fetch(`${url}/media/upload`, {

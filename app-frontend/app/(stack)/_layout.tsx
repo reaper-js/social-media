@@ -9,7 +9,14 @@ const StackLayout = () => {
           backgroundColor: "#F87171",
         },
       }}
-    />
+    >
+      <Stack.Screen
+        name="comments/[id]"
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack>
   );
 };
 

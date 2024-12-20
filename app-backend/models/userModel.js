@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
     },
+    bio: {
+        type: String,
+        trim: true
+    },
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
