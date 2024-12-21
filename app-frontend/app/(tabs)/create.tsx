@@ -81,16 +81,18 @@ const Create = () => {
     }
   };
   return (
-    <SafeAreaView className="bg-red-400 flex-1 h-full">
+    <SafeAreaView className="bg-[#002B5B] flex-1 h-full">
       <View className="my-6 px-4 space-y-6">
         <View className="justify-between items-start flex-row mb-6 mr-4">
           <View>
-            <Text className="text-5xl font-pblack pt-1 mt-3 ml-4">Post</Text>
+            <Text className="text-5xl text-[#57C5B6] font-pblack pt-1 mt-3 ml-4">
+              Post
+            </Text>
           </View>
           <View>
             <Image
-              source={images.watermelon}
-              className="w-14 h-14"
+              source={images.melonSearch}
+              className="w-20 h-20 -mt-4 -mr-3"
               resizeMode="contain"
             />
           </View>
@@ -113,7 +115,7 @@ const Create = () => {
                   className="w-20 h-20 mb-2"
                   resizeMode="contain"
                 />
-                <Text className="text-green-700 font-pmedium">
+                <Text className="text-[#002B5B] font-pmedium">
                   Tap to upload image or video
                 </Text>
               </View>
@@ -126,14 +128,14 @@ const Create = () => {
           value={caption}
           placeholder="Write a caption..."
           handleChangeText={setCaption}
-          otherStyles="mb-6"
+          otherStyles="mb-6 text-white"
         />
 
         <CustomButton
           title="Share Post"
           handlePress={handlePost}
           isLoading={isLoading}
-          containerStyles="w-full"
+          containerStyles="w-full bg-[#159895]"
         />
       </View>
     </SafeAreaView>

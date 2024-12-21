@@ -15,7 +15,7 @@ const CustomButton = ({
       className={`rounded-3xl min-h-[62px] justify-center items-center px-4 py-2 ${containerStyles} ${
         isLoading ? "opacity-50" : ""
       }`}
-      style={{ backgroundColor: "#2F6731" }}
+      // style={{ backgroundColor: "#002B5B" }}
       disabled={isLoading}
     >
       <Text className="text-white font-pblack">{title}</Text>

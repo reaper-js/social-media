@@ -93,19 +93,20 @@ const CompleteProfile = () => {
   };
 
   return (
-    <SafeAreaView className="h-full bg-red-500">
+    <SafeAreaView className="h-full bg-[#57C5B6]">
       <ScrollView>
         <View className="w-full justify-center items-center my-6">
-          <Text className="text-3xl text-white font-pblack mb-8">
+          <Text className="text-3xl text-[#002B5B] font-pblack mb-8">
             Complete Your Profile
           </Text>
 
           <TouchableOpacity onPress={pickImage}>
             <Image
-              source={profileImage ? { uri: profileImage } : images.profile}
-              className="w-32 h-32 rounded-full mb-6"
+              source={profileImage ? { uri: profileImage } : images.cards}
+              className="w-32 h-32 rounded-full mb-6 border-2 border-[#002B5B]"
+              resizeMode="cover"
             />
-            <Text className="text-secondary text-center">
+            <Text className="text-[#002B5B] text-center">
               Add Profile Picture
             </Text>
           </TouchableOpacity>
@@ -136,7 +137,7 @@ const CompleteProfile = () => {
           <CustomButton
             title="Complete Profile"
             handlePress={registerUser}
-            containerStyles="mt-7 mx-8 px-4 w-96"
+            containerStyles="mt-7 mx-8 px-4 w-96 bg-[#002B5B]"
             isLoading={isSubmitting}
             disabled={!isUsernameAvailable || isCheckingUsername}
           />

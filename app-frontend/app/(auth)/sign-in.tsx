@@ -46,14 +46,14 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView className="h-full bg-red-500">
-      <View className="w-full justify-center my-6">
+    <SafeAreaView className="h-full bg-[#57C5B6]">
+      <View className="w-full justify-center my-6 mt-12">
         <Image
           source={require("../../assets/images/watermelon.png")}
           resizeMode="contain"
-          className="w-[180px] h-[170px]"
+          className="w-[180px] h-[170px] ml-4"
         />
-        <Text className="text-5xl text-white font-pblack py-2 px-9">
+        <Text className="text-5xl text-[#002B5B] font-pblack py-2 px-9 mt-4">
           Log into Melon!
         </Text>
         <FormField
@@ -72,14 +72,14 @@ const SignIn = () => {
         <CustomButton
           title="Sign In"
           handlePress={submit}
-          containerStyles="mt-7 mx-8 px-4"
+          containerStyles="mt-7 mx-8 px-4 bg-[#002B5B]"
           isLoading={isSubmitting}
         />
         <View className="flex-row justify-center items-center mt-4 gap-2">
           <Text className="text-white text-base font-psemibold">
             Don't Have an account?
           </Text>
-          <Link href="/sign-up" className="text-green-800">
+          <Link href="/sign-up" className="text-[#002B5B]">
             Sign Up
           </Link>
         </View>

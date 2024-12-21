@@ -90,7 +90,7 @@ export default function Comments() {
   if (!post) return null;
 
   return (
-    <SafeAreaView className="bg-red-400 flex-1 h-full">
+    <SafeAreaView className="bg-[#002B5B] flex-1 h-full">
       <ScrollView>
         <View className="mt-4 px-4">
           <View className="justify-between items-start flex-row mr-4">
@@ -98,19 +98,19 @@ export default function Comments() {
               <Image
                 source={icons.leftArrow}
                 className="w-6 h-6 mt-3.5"
-                tintColor={"green"}
+                tintColor={"#57C5B6"}
                 resizeMode="contain"
               />
             </TouchableOpacity>
             <Text className="text-3xl font-pblack pt-1 mt-3 ml-10"></Text>
             <Image
-              source={images.watermelon}
-              className="w-14 h-14"
+              source={images.melonSearch}
+              className="w-20 h-20 -mt-4 -mr-3"
               resizeMode="contain"
             />
           </View>
         </View>
-        <View className="p-2 border m-2 rounded-2xl">
+        <View className="p-2 border-2 border-[#57C5B6] m-2 rounded-2xl">
           <View className="flex-row items-center mb-2">
             <Image
               source={
@@ -120,7 +120,9 @@ export default function Comments() {
               }
               className="w-10 h-10 rounded-full"
             />
-            <Text className="ml-2 font-psemibold">{post.uploadedBy.name}</Text>
+            <Text className="ml-2 font-psemibold text-[#57C5B6]">
+              {post.uploadedBy.name}
+            </Text>
           </View>
           {post.mediaType === "video" ? (
             <PostVideo videoUrl={`${url}/${post.mediaUrl}`} />
@@ -138,11 +140,13 @@ export default function Comments() {
             <FontAwesome
               name={isLiked ? "heart" : "heart-o"}
               size={24}
-              color={isLiked ? "#2e7d32" : "#000000"}
+              color={isLiked ? "#57C5B6" : "#57C5B6"}
             />
-            <Text className="font-psemibold ml-1">{post.likes.length}</Text>
+            <Text className="font-psemibold ml-1 text-[#57C5B6]">
+              {post.likes.length}
+            </Text>
           </TouchableOpacity>
-          <Text className="mt-2 ml-1 font-sans-serif font-bold">
+          <Text className="mt-2 ml-1 font-sans-serif font-bold text-[#57C5B6]">
             {post.description}
           </Text>
         </View>
@@ -158,8 +162,10 @@ export default function Comments() {
               className="w-8 h-8 rounded-full"
             />
             <View className="ml-2 flex-1">
-              <Text className="font-psemibold">{item.user.name}</Text>
-              <Text>{item.text}</Text>
+              <Text className="font-psemibold text-[#57C5B6]">
+                {item.user.name}
+              </Text>
+              <Text className="text-[#159895]">{item.text}</Text>
             </View>
           </View>
         ))}
@@ -175,7 +181,7 @@ export default function Comments() {
         />
         <TouchableOpacity
           onPress={handleComment}
-          className="mt-4 bg-green-800 px-4 py-2 rounded-3xl w-20 h-14 items-center justify-center"
+          className="mt-4 bg-[#text-[#57C5B6]] px-4 py-2 rounded-3xl w-20 h-14 items-center justify-center"
         >
           <Text className="text-white font-psemibold">Post</Text>
         </TouchableOpacity>

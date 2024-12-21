@@ -105,18 +105,18 @@ const EditProfile = () => {
     }
   };
   return (
-    <SafeAreaView className="flex-1 bg-red-400">
+    <SafeAreaView className="flex-1 bg-[#002B5B]">
       <ScrollView className="flex-1 px-4">
         <View className="flex-row items-center justify-between mt-4">
           <TouchableOpacity onPress={() => router.back()}>
             <Image
               source={icons.leftArrow}
               className="w-6 h-6"
-              tintColor={"green"}
+              tintColor={"#57C5B6"}
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text className="font-pbold text-green-800 text-2xl">
+          <Text className="font-pbold text-[#57C5B6] text-2xl">
             Edit Profile
           </Text>
           <View className="w-6" />
@@ -136,7 +136,7 @@ const EditProfile = () => {
               className="w-24 h-24 rounded-full"
             />
 
-            <View className="absolute bottom-0 right-0 bg-green-800 p-2 rounded-full">
+            <View className="absolute bottom-0 right-0 bg-[#1A5F7A] p-2 rounded-full">
               <Image
                 source={icons.upload}
                 className="w-4 h-4 tint-white"
@@ -148,22 +148,23 @@ const EditProfile = () => {
 
         <View className="mt-8 space-y-4">
           <View>
-            <Text className="text-white font-pmedium mb-2">Name</Text>
+            <Text className="text-white font-pmedium mb-1 ml-2">Name</Text>
             <TextInput
               value={name}
               onChangeText={setName}
-              className="bg-white p-4 rounded-2xl text-green-800 font-pregular"
+              className="bg-white p-4 rounded-2xl text-[#002B5B] font-pregular mb-4"
               placeholder="Enter your name"
+              placeholderTextColor="#1A5F7A"
             />
           </View>
 
           <View>
-            <Text className="text-white font-pmedium mb-2">Bio</Text>
+            <Text className="text-white font-pmedium mb-1 ml-2">Bio</Text>
             <TextInput
               value={bio}
               onChangeText={setBio}
-              className="bg-white p-4 rounded-2xl text-green-800 font-pregular"
-              placeholderTextColor="#666"
+              className="bg-white p-4 rounded-2xl text-[#002B5B] font-pregular"
+              placeholderTextColor="#1A5F7A"
               multiline
               numberOfLines={4}
               textAlignVertical="top"
@@ -176,7 +177,7 @@ const EditProfile = () => {
           title={isLoading ? "Updating..." : "Save Changes"}
           handlePress={handleUpdate}
           disabled={isLoading}
-          containerStyles="mt-8 mb-4"
+          containerStyles="mt-8 mb-4 bg-[#159895]"
         />
       </ScrollView>
     </SafeAreaView>

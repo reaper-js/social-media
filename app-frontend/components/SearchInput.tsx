@@ -23,7 +23,7 @@ const SearchInput: React.FC<FormFieldProps> = ({
   return (
     <View className="w-full h-16 bg-white rounded-3xl justify-center items-center flex-row space-x-4">
       <TextInput
-        className="flex-1 text-green-700 font-psemibold text-base px-6"
+        className="flex-1 text-[#002B5B] font-psemibold text-base px-6"
         value={value}
         placeholder={placeholder}
         placeholderTextColor="black"

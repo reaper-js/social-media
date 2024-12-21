@@ -16,13 +16,13 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   isSearch,
 }) => {
   return (
-    <View className="justify-center items-center px-4">
+    <View className="justify-center items-center px-4 mt-24">
       <Image
-        source={images.search}
-        className="w-[270px] h-[215px]"
+        source={images.watermelon}
+        className="w-[150px] h-[215px] mr-10"
         resizeMode="contain"
       />
-      <Text className="text-3xl font-psemibold text-center -mt-10">
+      <Text className="text-3xl text-[#57C5B6] font-psemibold text-center -mt-4 mb-1">
         {title}
       </Text>
 
@@ -30,7 +30,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         <CustomButton
           title="Create a Post"
           handlePress={() => router.push("/create")}
-          containerStyles="w-full my-4"
+          containerStyles="w-80 my-4 bg-[#159895]"
         />
       )}
     </View>

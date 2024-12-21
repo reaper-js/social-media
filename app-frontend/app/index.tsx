@@ -7,25 +7,25 @@ import CustomButton from "@/components/CustomButton";
 
 export default function Index() {
   return (
-    <SafeAreaView className="bg-red-500 h-full">
+    <SafeAreaView className="bg-[#57C5B6] h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className="w-full min-h-[85vh] justify-center items-center px-4 mt-24">
           <Image
             source={images.watermelon}
-            className="w-[180px] h-[180px] object-cover "
+            className="w-[180px] h-[180px] object-cover mr-14 "
             resizeMode="contain"
           />
-          <Text className="text-6xl text-white font-pblack">Melon</Text>
-          <View className="relative mt-5 bg-black/10 rounded-full h-10 px-4 pt-2 mb-4">
-            <Text className="text-white font-serif text-2xl">
+          <Text className="text-6xl text-[#002B5B] font-pblack">Melon</Text>
+          <View className="relative mt-5 bg-[#159895] rounded-full h-10 px-4 pt-2 mb-4">
+            <Text className="text-white font-serif text-2xl f">
               Discover the world with{" "}
-              <Text className="text-green-500">Melon!!</Text>
+              <Text className="text-[#1A5F7A] font-bold">Melon!!</Text>
             </Text>
           </View>
           <CustomButton
             title="Continue with E-mail"
             handlePress={() => router.push("/sign-in")}
-            containerStyles="w-80 mt-40"
+            containerStyles="w-80 mt-40 bg-[#002B5B]"
           />
         </View>
       </ScrollView>

@@ -150,7 +150,7 @@ const Home = () => {
 
   // const items: Array<{ id: number }> = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const renderPost = ({ item }: { item: any }) => (
-    <View className="p-4 bg-red-500 m-2 rounded-xl">
+    <View className="p-4 bg-[#001730] border-2 border-[#57C5B6] m-3 rounded-xl">
       <View className="flex-row items-center mb-2">
         <Image
           source={
@@ -160,7 +160,9 @@ const Home = () => {
           }
           className="w-10 h-10 rounded-full"
         />
-        <Text className="ml-2 font-psemibold">{item.uploadedBy.name}</Text>
+        <Text className="ml-2 font-psemibold text-[#57C5B6]">
+          {item.uploadedBy.name}
+        </Text>
       </View>
       {item.mediaType === "video" ? (
         <PostVideo videoUrl={`${url}/${item.mediaUrl}`} />
@@ -180,24 +182,28 @@ const Home = () => {
             <FontAwesome
               name={item.likes.includes(user._id) ? "heart" : "heart-o"}
               size={24}
-              color={item.likes.includes(user._id) ? "#2e7d32" : "#000000"}
+              color={item.likes.includes(user._id) ? "#57C5B6" : "#57C5B6"}
             />
-            <Text className="font-psemibold ml-1">{item.likes.length}</Text>
+            <Text className="font-psemibold ml-1 text-[#57C5B6]">
+              {item.likes.length}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleComment(item._id)}
             className="flex-row items-center gap-1"
           >
-            <FontAwesome name="comment-o" size={24} color="black" />
-            <Text className="font-psemibold">{item.comments.length}</Text>
+            <FontAwesome name="comment-o" size={24} color="#57C5B6" />
+            <Text className="font-psemibold text-[#57C5B6]">
+              {item.comments.length}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Text className="mt-2">{item.description}</Text>
+      <Text className="mt-2 text-[#57C5B6]">{item.description}</Text>
     </View>
   );
   return (
-    <SafeAreaView className="bg-red-400 flex-1 h-full" edges={["top"]}>
+    <SafeAreaView className="bg-[#002B5B] flex-1 h-full" edges={["top"]}>
       <FlatList
         data={posts}
         keyExtractor={(item) => item._id}
@@ -206,14 +212,14 @@ const Home = () => {
           <View className="mt-6 px-4 ">
             <View className="justify-between items-start flex-row mr-4">
               <View>
-                <Text className="text-5xl font-pblack pt-1 mt-3 ml-4">
+                <Text className="text-5xl text-[#57C5B6] font-pblack pt-1 mt-3 ml-4">
                   Feed
                 </Text>
               </View>
               <View>
                 <Image
-                  source={images.watermelon}
-                  className="w-14 h-14"
+                  source={images.melonSearch}
+                  className="w-20 h-20 -mt-4 -mr-3"
                   resizeMode="contain"
                 />
               </View>

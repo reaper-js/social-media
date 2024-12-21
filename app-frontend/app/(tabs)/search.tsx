@@ -46,14 +46,16 @@ const Search = () => {
   };
 
   return (
-    <SafeAreaView className="bg-red-400 flex-1">
+    <SafeAreaView className="bg-[#002B5B] flex-1">
       <ScrollView className="flex-1">
-        <View className="mt-6 px-4">
+        <View className="mt-6 px-4 ">
           <View className="justify-between items-start flex-row mr-4">
-            <Text className="text-5xl font-pblack pt-1 mt-3 ml-4">Search</Text>
+            <Text className="text-5xl text-[#57C5B6] font-pblack pt-1 mt-3 ml-4">
+              Search
+            </Text>
             <Image
-              source={images.watermelon}
-              className="w-14 h-14"
+              source={images.melonSearch}
+              className="w-20 h-20 -mt-4 -mr-3"
               resizeMode="contain"
             />
           </View>
