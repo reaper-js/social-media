@@ -17,13 +17,13 @@ A full-stack social media app built from scratch with React Native (Frontend), N
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <img src="screenshots/home.PNG" width="200" />
-    <img src="screenshots/login.png" width="200" />
-    <img src="screenshots/signup.png" width="200" />
-    <img src="screenshots/homeFeed.png" width="200" />
-    <img src="screenshots/search.png" width="200" />
-    <img src="screenshots/createpost.png" width="200" />
-    <img src="screenshots/post.png" width="200" />
-    <img src="screenshots/profile.png" width="200" />
+    <img src="screenshots/login.PNG" width="200" />
+    <img src="screenshots/signup.PNG" width="200" />
+    <img src="screenshots/homeFeed.PNG" width="200" />
+    <img src="screenshots/search.PNG" width="200" />
+    <img src="screenshots/createpost.PNG" width="200" />
+    <img src="screenshots/post.PNG" width="200" />
+    <img src="screenshots/profile.PNG" width="200" />
 </div>
 
 ## Tech Stack
