@@ -59,7 +59,7 @@ const Create = () => {
       name: filename || "media",
     } as any);
     formData.append("description", caption);
-    formData.append("mediaType", mediaType); // Now sending correct mediaType
+    formData.append("mediaType", mediaType);
     const token = await SecureStore.getItemAsync("userToken");
     try {
       const response = await fetch(`${url}/media/upload`, {
